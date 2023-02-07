@@ -5,17 +5,6 @@ module.exports = function toReadable(number) {
     const hundreds = 'hundred';
     let result = '';
 
-    if (number <= 20) {
-        result = units[number];
-    }
-
-    if (number > 20 && number < 100) {
-        if (number % 10) {
-            result = `${tens[Math.trunc(number / 10)]} ${units[number % 10]}`;
-        }
-        else result = `${tens[number / 10]}`;
-    }
-
     if (number >= 100) {
         if (number % 100 <= 20) {
             result = `${units[Math.trunc(number / 100)]} ${hundreds} ${units[Math.trunc((number % 100))]}`;
@@ -23,14 +12,24 @@ module.exports = function toReadable(number) {
         else result = `${units[Math.trunc(number / 100)]} ${hundreds} ${tens[Math.trunc((number % 100) / 10)]} ${units[number % 10]}`;
     }
 
-
     if (number % 10 == 0) {
         if (number % 100) {
             result = `${units[Math.trunc(number / 100)]} ${hundreds} ${tens[Math.trunc((number % 100) / 10)]}`;
-
         } else {
             result = `${units[Math.trunc(number / 100)]} ${hundreds}`;
         }
+    }
+
+    if (number > 20 && number < 100) {
+        if (number % 10) {
+            result = `${tens[Math.trunc(number / 10)]} ${units[number % 10]}`;
+        }
+        else result = `${tens[number / 10]}`;
+
+    }
+
+    if (number <= 20) {
+        result = units[number];
     }
     return result;
 }
